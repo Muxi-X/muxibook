@@ -44,11 +44,11 @@ class User(UserMixin,db.Model):
 		return User.query.get(data['id'])
 	def generate_confirmation_token(self,expiration=3600):
 		s=Serializer(current_app.config['SECRET_KEY'],expiration)
-		return s.dumps({'confirm':self.id})
+		return s.dumps({'confirm':self.id}).decode('utf-8')
 	def confirm(self,token):
 		s=Serializer(current_app.config['SECRET_KEY'])
 		try:
-			data=s.loads(token)
+			data=s.loads(token.encode('utf-8'))
 		except:
 			return False
 		if data.get('confirm')!=self.id:
@@ -66,7 +66,6 @@ class Book(db.Model):
 	book_num=db.Column(db.String)
 	ava=db.Column(db.Boolean)
 	user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
-	date=db.Column(db.DateTime)
 	return_time=db.Column(db.String)
 #	def to_json(self):
 #		json_book={

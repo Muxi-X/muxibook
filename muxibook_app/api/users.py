@@ -16,7 +16,7 @@ def login():
 	else:
 		if usr.verify_password(pasword):
 			token=usr.generate_confirmation_token()
-			response=jsonify({"token":str(token)})
+			response=jsonify({"token":token})
 			response.status_code=200
 			return response
 			

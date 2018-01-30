@@ -36,9 +36,9 @@ step4 : migrate your database
 
 	(venv)$ python3 manage.py db upgrade
 
-step5 : start muxibook_app server
+step5 : open muxibook_app server
 
-	(venv)$ python3 manage.py runserver
+	(venv)$ gunicorn --name muxibook -b 0.0.0.0:1488 -w 2 wsgi:app &
 
 	
-Then you can enjoy muxibook_app server at 127.0.0.1:5000/api/v1.0/
+Then you can enjoy muxibook_app server at 0.0.0.0:1488/api/v1.0/

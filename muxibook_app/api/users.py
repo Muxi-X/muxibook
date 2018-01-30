@@ -5,7 +5,9 @@ from ..models import User,Book
 
 
 @api.route('/login/',methods=['POST'])
-def login(usrname,pasword):
+def login():
+	usrname=request.get_json().get('username')
+	pasword=request.get_json().get('password')
 	usr=User.query.filter_by(username=usrname).first()
 	if usr is None or usr.verify_password(pasword)==False:
 		response=jsonify({})
@@ -14,12 +16,15 @@ def login(usrname,pasword):
 	else:
 		if usr.verify_password(pasword):
 			token=usr.generate_confirmation_token()
-			response=jsonify({"token":token})
+			response=jsonify({"token":str(token)})
 			response.status_code=200
 			return response
 			
 @api.route('/signup/',methods=['POST'])
-def signup(relname,usrname,pasword):
+def signup():
+	relname=request.get_json().get('realname')
+	usrname=request.get_json().get('username')
+	pasword=request.get_json().get('password')
 	usr=User.query.filter_by(username=usrname).first()
 	if usr is not None:
 		response=jsonify({})

@@ -6,7 +6,10 @@ from . import api
 from .errors import forbidden
 
 @api.route('/book/',methods=['POST'])
-def add_book(kind,bokname,boknum):
+def add_book():
+	kind=request.get_json().get('kind')
+	bokname=request.get_json().get('book')
+	boknum=request.get_json().get('no')
 	t=request.args.get('token')
 	bok=Book(kind=kind,bookname=bokname,book_num=boknum)
 	db.session.add(bok)
@@ -17,8 +20,8 @@ def add_book(kind,bokname,boknum):
 
 @api.route('/book/',methods=['GET'])
 def find_book():
-	kind=request.get_json().get('kind')
-	page=request.get_json().get('page')
+	page=request.arge.get('page')
+	kind=request.args.get('kind')
 	knd=Kind.query.filter_by(id=kind).first()
 	counter=0
 	boks=[]
@@ -44,7 +47,9 @@ def find_book():
 
 @api.route('/booklend/',methods=['POST'])
 def lend_book(bokname,relname):
-	t=request.args.get('token')
+	bokname=request.get_json().get('book')
+	relname=request.get_json().get('realname')
+	t=headers['token']
 	usr=User.query.filter_by(realname=relname).first()
 	bok=Book.query.filter_by(bookname=bokname).first()
 	if usr.confirm(t) and usr.book_count <= 5:

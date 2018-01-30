@@ -1,7 +1,7 @@
 import time
 from flask import jsonify,request,g,url_for,current_app
 from .. import db
-from ..models import User,Book
+from ..models import User,Book,Kind
 from . import api
 from .errors import forbidden
 
@@ -16,8 +16,31 @@ def add_book(kind,bokname,boknum):
 	return response
 
 @api.route('/book/',methods=['GET'])
-def find_book(kind,page):
-
+def find_book():
+	kind=request.get_json().get('kind')
+	page=request.get_json().get('page')
+	knd=Kind.query.filter_by(id=kind).first()
+	counter=0
+	boks=[]
+	for b in knd.books:
+		counter=counter+1
+		if counter/10 == (page-1):
+			usr=User.query.filter_by(id=b.user_id).first()
+			boks[counter%10]=jsonify({
+				"book":b.bookname,
+				"kind":b.kind,
+				"available":b.available,
+				"who":usr.username,
+				"when":b.return_time,
+				"realname":usr.realname
+			})
+	response=jsonify({
+		"num":counter,
+		"page":page,
+		"books":boks
+	})
+	response.status_code=200
+	return response
 
 @api.route('/booklend/',methods=['POST'])
 def lend_book(bokname,relname):

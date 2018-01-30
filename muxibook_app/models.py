@@ -2,16 +2,18 @@ import time
 from . import db,login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin,AnonymousUserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask import current_app
 
 class User(UserMixin,db.Model):
 	__tablename__='users'
 	id=db.Column(db.Integer,primary_key=True)
-	username=db.Colunm(db.String(20),unique=True)
-	realname=db.Colunm(db.String(10))
-	password=db.Colunm(db.String(20))
-	password_hash=db.Colunm(db.String(128))
-	confirmed=db.Colunm(db.Boolean,default=False)
-	book_count=db.Colunm(db.Integer,default=0)
+	username=db.Column(db.String(20),unique=True)
+	realname=db.Column(db.String(10))
+	password=db.Column(db.String(20))
+	password_hash=db.Column(db.String(128))
+	confirmed=db.Column(db.Boolean,default=False)
+	book_count=db.Column(db.Integer,default=0)
 	books=db.relationship('Book',backref='user',lazy='dynamic')
 	@property
 	def password(self):
@@ -58,14 +60,14 @@ class User(UserMixin,db.Model):
 
 class Book(db.Model):
 	__tablename__='books'
-	id=db.Colunm(db.Integer,primary_key=True)
-	kind=db.Colunm(db.Integer)
-	bookname=db.Colunm(db.String(30))
-	book_num=db.Colunm(db.String)
-	ava=db.Colunm(db.Boolean)
-	user_id=db.Colunm(db.Integer,db.ForeirnKey('users.id'))
-	date=db.Colunm(db.DateTime)
-	return_time=db.Colunm(db.String)
+	id=db.Column(db.Integer,primary_key=True)
+	kind_id=db.Column(db.Integer,db,ForeignKey('kinds.id'))
+	bookname=db.Column(db.String(30))
+	book_num=db.Column(db.String)
+	ava=db.Column(db.Boolean)
+	user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+	date=db.Column(db.DateTime)
+	return_time=db.Column(db.String)
 #	def to_json(self):
 #		json_book={
 #			'url':url_for('api.get_book',id=self.id,_external=True)
@@ -80,3 +82,8 @@ class Book(db.Model):
 	def ddl(self,date):
 		ddl=self.date[1]+2
 		self.return_time=time.asctime(ddl)
+
+class Kind(db.Model):
+	__tablename__='kinds'
+	id=db.Column(db.Integer,primary_key=True)
+	books=db.relationship('Book',backref='kind',lazy='dynamic')

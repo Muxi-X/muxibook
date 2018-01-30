@@ -51,6 +51,7 @@ def lend_book(bokname,relname):
 		bok.user_id=usr.id
 		bok.ava=false
 		bok.date=time.local(time.time())
+		bok.ddl()
 		usr.book_count=usr.book_count+1
 		db.session.add(bok,usr)
 		db.session.commit()

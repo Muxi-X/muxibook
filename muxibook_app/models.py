@@ -51,7 +51,7 @@ class User(UserMixin,db.Model):
 			data=s.loads(token)
 		except:
 			return False
-		if data.get('confirm')!=self.id
+		if data.get('confirm')!=self.id:
 			return False
 		self.confirm=True
 		db.session.add(self)
@@ -61,7 +61,7 @@ class User(UserMixin,db.Model):
 class Book(db.Model):
 	__tablename__='books'
 	id=db.Column(db.Integer,primary_key=True)
-	kind_id=db.Column(db.Integer,db,ForeignKey('kinds.id'))
+	kind_id=db.Column(db.Integer,db.ForeignKey('kinds.id'))
 	bookname=db.Column(db.String(30))
 	book_num=db.Column(db.String)
 	ava=db.Column(db.Boolean)
@@ -78,7 +78,7 @@ class Book(db.Model):
 #			'user_id':self.user_id
 #			'date'=self.date
 #		} 
-	@date.setter
+
 	def ddl(self,date):
 		ddl=self.date[1]+2
 		self.return_time=time.asctime(ddl)

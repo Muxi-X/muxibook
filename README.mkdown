@@ -1,0 +1,44 @@
+# MUXI-BOOK
+
+if you want to run the muxibook_app server:
+	
+step1 : install dependency package with requirements.txt
+
+	$ source venv/bin/activate
+
+	(venv)$ pip install -r requirements.txt
+
+step2 : create your database
+	
+	(venv)$ python3 manage.py shell
+	
+	>>>from muxibook_app import db
+	
+	>>>db.create_all()
+	
+step3 : initialize your database (kind)
+	
+	>>>from muxibook_app import Kind
+
+	>>>a,b,c,d,e=Kind()
+
+	>>>db.session.add(a,b,c,d,e)
+
+	>>>db.session.commit()
+
+	>>>quit()
+
+step4 : migrate your database
+	
+	(venv)$ python3 manage.py db init
+
+	(venv)$ python3 manage.py db migrate -m "initial migration"
+
+	(venv)$ python3 manage.py db upgrade
+
+step5 : start muxibook_app server
+
+	(venv)$ python3 manage.py runserver
+
+	
+Then you can enjoy muxibook_app server at 127.0.0.1:5000/api/v1.0/

@@ -3,6 +3,7 @@
 |URL| headers|methods|
 |--|--|--|
 | /api/book/ | 'token' : string  | POST | 
+
 **URL Params:  None** 
 **POST Data:** 
 ```
@@ -26,7 +27,8 @@
 ## 查看图书 
 |URL| headers|methods|
 |--|--|--|
-| /api/book/ | None | GET | 
+| /api/book/ | None | GET |
+
 **URL Params:** 
 ```
 {
@@ -57,7 +59,8 @@
 ## 借出图书 
 |URL| headers|methods|
 |--|--|--|
-| /api/booklend/ | "token" : string | POST |  
+| /api/booklend/ | "token" : string | POST |
+
 **URL Params:  None** 
 **POST Data:** 
 ```
@@ -87,7 +90,8 @@
 ## 登录
 |URL| headers|methods|
 |--|--|--|
-| /api/login/ | None | POST|  
+| /api/login/ | None | POST|
+
 **URL Params:  None** 
 **POST Data:** 
 ```
@@ -111,7 +115,8 @@
 ## 注册
 |URL| headers|methods|
 |--|--|--|
-| /api/signup/ | None | POST|  
+| /api/signup/ | None | POST|
+  
 **URL Params:None** 
 **POST Data:** 
 ```

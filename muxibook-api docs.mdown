@@ -4,40 +4,53 @@
 |--|--|--|
 | /api/book/ | 'token' : string  | POST | 
 
-**URL Params:  None** 
+**URL Params:  None**
+
 **POST Data:** 
+
 ```
 {
 	 "kind" : int，     // 图书种类，产品为1，安卓为2，前端为3，后端为4，设计为5，其他为5 
 	 "book" : string，  // 书名 
 	 "no" : string      // 图书编号  
 }
-``` 
+```
+
 **RETURN Data:** 
+
 ```
 {
 	"msg" : "add successfully" 
 } 
-``` 
-**Status Code** 
+```
+
+**Status Code**
+
 ```
 201      // 成功
 ```
+
 ***
+
 ## 查看图书 
+
 |URL| headers|methods|
 |--|--|--|
 | /api/book/ | None | GET |
 
-**URL Params:** 
+**URL Params:**
+
 ```
 {
 	 "kind" : int，              //  查看图书的种类，同上 
 	 "page" : int                //  页数，默认为1 
 }
 ```
-**POST Data: None** 
+
+**POST Data: None**
+
 **RETURN Data:** 
+
 ```
 {
 	 "num" : int，              // 查询到的该种类图书总数 
@@ -51,25 +64,32 @@
 				"realname" : string        // 借出人真名 
  	 }] 
 }
+
 ```
 **Status Code** 
 ```
 200 // 成功 
 ```
-## 借出图书 
+
+## 借出图书
+
 |URL| headers|methods|
 |--|--|--|
 | /api/booklend/ | "token" : string | POST |
 
-**URL Params:  None** 
-**POST Data:** 
+**URL Params:  None**
+
+**POST Data:**
+
 ```
 {
 	 "book" : string，    // 书名 
 	 "realname" : string  // 真名
 }
-```  
-**RETURN Data:** 
+```
+
+**RETURN Data:**
+
 ```
 {
 			   "book" : string，            // 书名 
@@ -80,44 +100,57 @@
 				"realname" : string         // 借出人真名 
 }
 ```
-**Status Code:**   
+
+**Status Code:**
+
 ```
 401        //  身份验证错误 
 403        //  借阅图书已超过5本，不能借书
 200        //  借书成功 
 ```
+
 *** 
 ## 登录
+
 |URL| headers|methods|
 |--|--|--|
 | /api/login/ | None | POST|
 
-**URL Params:  None** 
+**URL Params:  None**
+
 **POST Data:** 
+
 ```
 {
 	  “username" : string，         // 用户名 
 	  "password" : string           // 密码 
 }
-```  
-**RETURN Data:** 
+```
+
+**RETURN Data:**
+
 ```
 {
 	"token" : string （其实不是string，是令牌原有的格式）
 }
 ```
-**Status Code** 
+
+**Status Code**
+
 ```
 200 登录成功
 401 验证错误，不存在该用户 
 ```
+
 ***
 ## 注册
+
 |URL| headers|methods|
 |--|--|--|
 | /api/signup/ | None | POST|
   
-**URL Params:None** 
+**URL Params:None**
+ 
 **POST Data:** 
 ```
 {

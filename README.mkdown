@@ -2,13 +2,13 @@
 
 if you want to run the muxibook_app server:
 	
-step1 : install dependency package with requirements.txt
+## step1 : install dependency package with requirements.txt
 
 	$ source venv/bin/activate
 
 	(venv)$ pip install -r requirements.txt
 
-step2 : create your database
+## step2 : create your database
 	
 	(venv)$ python3 manage.py shell
 	
@@ -16,7 +16,7 @@ step2 : create your database
 	
 	>>>db.create_all()
 	
-step3 : initialize your database (kind)
+## step3 : initialize your database (kind)
 	
 	>>>from muxibook_app import Kind
 
@@ -28,7 +28,7 @@ step3 : initialize your database (kind)
 
 	>>>quit()
 
-step4 : migrate your database
+## step4 : migrate your database
 	
 	(venv)$ python3 manage.py db init
 
@@ -36,9 +36,9 @@ step4 : migrate your database
 
 	(venv)$ python3 manage.py db upgrade
 
-step5 : start muxibook_app server
+## step5 : open muxibook_app server
 
-	(venv)$ python3 manage.py runserver
+	(venv)$ gunicorn --name muxibook -b 0.0.0.0:1488 -w 3 wsgi:app &
 
 	
-Then you can enjoy muxibook_app server at 127.0.0.1:5000/api/v1.0/
+Then you can enjoy muxibook_app server at 0.0.0.0:1488/api/v1.0/

@@ -10,7 +10,7 @@
 
 ```
 {
-	 "kind" : int，     // 图书种类，产品为1，安卓为2，前端为3，后端为4，设计为5，其他为5 
+	 "kind" : int，     // 图书种类，产品为1，安卓为2，前端为3，后端为4，设计为5，其他为6 
 	 "book" : string，  // 书名 
 	 "no" : string      // 图书编号  
 }
@@ -58,7 +58,7 @@
 	 "books" : [{
 	 			"book" : string，          // 书名 
 				"kind" : int，             // 种类 
-				"available" : bool，       // 可借为True，不可借为False  
+				"available" : int，       // 可借为1，不可借0  
 				"who" : string，           // 如果已借出，借出人用户名 
 				"when" : string，          // 如果已经借出，归还日期 
 				"realname" : string        // 借出人真名 
@@ -94,7 +94,7 @@
 {
 			   "book" : string，            // 书名 
 				"kind" : int，              // 种类 
-				"available" : bool，        // 可借为True，不可借为False 
+				"available" : int ,        // 可借为1，不可借为0, 
 				"who" : string，            // 如果已借出，借出人用户名 
 				"when" : string，           // 如果已经借出，归还日期，格式：2018-3-31 
 				"realname" : string         // 借出人真名 
@@ -170,5 +170,36 @@
 200 注册成功
 401 验证错误，该用户已存在
 ```
+## mybook
 
+|URL|headers|methods|
+|--|--|--|
+|/api/v1.0/mybooks/|"token":string|POST|
 
+**URL:Params:None**
+
+**POST Data:**
+
+```
+{
+    "username":string
+}
+```
+**RETURN Data:**
+```
+{
+    "lend"[{
+               "no":string,
+	       "bookname":string,
+	       "return_time"
+           }
+          ]
+}
+
+**Status code:**
+
+```
+200 OK
+
+401 confirm failed
+```

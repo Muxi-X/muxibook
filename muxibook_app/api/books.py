@@ -26,6 +26,8 @@ def find_book():
 	counter=0
 	boks=list([None,None,None,None,None,None,None,None,None,None,None])
 	for b in knd.books:
+		if (time.time()-int(b.lend_time)) > 5155199 && b.ava==0:
+			b.ava=2
 		counter=counter+1
 		c=int(counter)//10
 		if (c+1) == page:
@@ -55,8 +57,9 @@ def lend_book():
 	bok=Book.query.filter_by(bookname=bokname).first()
 	if usr.confirm(t) and usr.book_count <= 5:
 		bok.user_id=usr.id
-		bok.ava=False
+		bok.ava=0
 		a=time.localtime(time.time()+5155199)
+		bok.lend_time=str(time.time())
 		bok.return_time=str(a[0])+"-"+str(a[1])+"-"+str(a[2])
 		usr.book_count=usr.book_count+1
 		db.session.add(bok,usr)
@@ -78,3 +81,25 @@ def lend_book():
 			response.status_code=403
 	return response
 
+@api.route('/mybooks/',methods=['POST'])
+def mybooks():
+	token=request.headers.get('token')
+	usrname=request.get_json().get('username')
+	usr=User.query.filter_by(username=usrname).first()
+	if usr.confirm(token) :
+		lends=list([None,None,None,None,None,None])
+		c=0
+		for b in usr.books:
+			c=c+1
+			lends[c]={
+				"no" : b.book_num,
+				"bookname" : b.bookname,
+				"return_time" : b.return_time				
+			}
+		response=jsonify({"lend":lends})
+		response.status_code=200
+		return response
+	else:
+		response=jsonify({})
+		response.status_code=401
+		return response

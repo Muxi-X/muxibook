@@ -66,6 +66,7 @@ class Book(db.Model):
 	book_num=db.Column(db.String)
 	ava=db.Column(db.Boolean)
 	user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+	lend_time=db.Column(db.String(50))
 	return_time=db.Column(db.String)
 #	def to_json(self):
 #		json_book={

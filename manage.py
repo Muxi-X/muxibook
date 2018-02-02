@@ -25,11 +25,14 @@ class get_info(Command):
 		sheets=book.sheets()
 		for sheet in sheets:
 			rows=sheet.get_rows()
+			c=0
 			for row in rows :
-				s=row[2].value.encode('utf-8').decode('utf-8')
-				a=Book(kind_id=row[0].value,book_num=row[1].value,bookname=s)
-				db.session.add(a)
-				db.session.commit()
+				c+=1
+				if c>1:
+					s=row[2].value.encode('utf-8').decode('utf-8')
+					a=Book(ava=1,kind_id=row[0].value,book_num=row[1].value,bookname=s)
+					db.session.add(a)
+					db.session.commit()
 		print ("successful!")
 
 manager.add_command('get_info',get_info())

@@ -26,20 +26,31 @@ def find_book():
 	counter=0
 	boks=list([None,None,None,None,None,None,None,None,None,None,None])
 	for b in knd.books:
-		if ((time.time()-int(b.lend_time)) > 5155199) and (b.ava==0):
-			b.ava=2
+		if b.ava==0:
+			if (time.time()-int(b.lend_time)) > 5155199:
+				b.ava=2
 		counter=counter+1
 		c=int(counter)//10
 		if (c+1) == page:
 			usr=User.query.filter_by(id=b.user_id).first()
-			boks[counter%10]={
-				"book":b.bookname,
-				"kind":b.kind_id,
-				"available":b.ava,
-				"who":usr.username,
-				"when":b.return_time,
-				"realname":usr.realname
-			}
+			if usr==None:
+				b.ava=1
+				boks[counter%10]={
+					"book":b.bookname,
+					"kind":b.kind_id,
+					"available":b.ava
+				}		
+				db.session.add(b)
+				db.session.commit()
+			else :
+				boks[counter%10]={
+					"book":b.bookname,
+					"kind":b.kind_id,
+					"available":b.ava,
+					"who":usr.username,
+					"when":b.return_time,
+					"realname":usr.realname
+				}
 	response=jsonify({
 		"num":counter,
 		"page":page,

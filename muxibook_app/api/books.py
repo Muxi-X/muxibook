@@ -26,7 +26,7 @@ def find_book():
 	counter=0
 	boks=list([None,None,None,None,None,None,None,None,None,None,None])
 	for b in knd.books:
-		if (time.time()-int(b.lend_time)) > 5155199 && b.ava==0:
+		if ((time.time()-int(b.lend_time)) > 5155199) and (b.ava==0):
 			b.ava=2
 		counter=counter+1
 		c=int(counter)//10

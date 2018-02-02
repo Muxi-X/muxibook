@@ -21,7 +21,7 @@ manager.add_command('db',MigrateCommand)
 
 class get_info(Command):
 	def run(self):
-		book=xlrd.open_workbook("/home/shiina/MUXI/1.xls")
+		book=xlrd.open_workbook("1.xls")
 		sheets=book.sheets()
 		for sheet in sheets:
 			rows=sheet.get_rows()

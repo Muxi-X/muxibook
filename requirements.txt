@@ -78,3 +78,4 @@ usb-creator==0.2.23
 wheel==0.24.0
 xdiagnose==3.6.3build2
 xkit==0.0.0
+xlrd==1.1.0

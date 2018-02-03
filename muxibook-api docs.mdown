@@ -2,7 +2,7 @@
 ## 添加图书 
 |URL| headers|methods|
 |--|--|--|
-| /api/book/ | 'token' : string  | POST | 
+| /api/v1.0/book/ | 'token' : string  | POST | 
 
 **URL Params:  None**
 
@@ -27,7 +27,7 @@
 **Status Code**
 
 ```
-201      // 成功
+200      // 成功
 ```
 
 ***
@@ -36,7 +36,7 @@
 
 |URL| headers|methods|
 |--|--|--|
-| /api/book/ | None | GET |
+| /api/v1.0/book/ | None | GET |
 
 **URL Params:**
 
@@ -75,7 +75,7 @@
 
 |URL| headers|methods|
 |--|--|--|
-| /api/booklend/ | "token" : string | POST |
+| /api/v1.0/booklend/ | "token" : string | POST |
 
 **URL Params:  None**
 
@@ -110,10 +110,10 @@
 ```
 
 ***
-## return book 
+## 归还图书 
 |URL| headers|methods|
 |--|--|--|
-| /api/return/ | None | POST | 
+| /api/v1.0/return/ | None | POST | 
 
 **URL Params:  None**
 
@@ -139,10 +139,10 @@
 ```
 
 ***
-## renew a book
+## 续借图书
 |URL| headers|methods|
 |--|--|--|
-| /api/renew/ | None | POST | 
+| /api/v1.0/renew/ | None | POST | 
 
 **URL Params:  None**
 
@@ -175,7 +175,7 @@
 
 |URL| headers|methods|
 |--|--|--|
-| /api/login/ | None | POST|
+| /api/v1.0/login/ | None | POST|
 
 **URL Params:  None**
 
@@ -208,7 +208,7 @@
 
 |URL| headers|methods|
 |--|--|--|
-| /api/signup/ | None | POST|
+| /api/v1.0/signup/ | None | POST|
   
 **URL Params:None**
  
@@ -231,7 +231,7 @@
 200 注册成功
 401 验证错误，该用户已存在
 ```
-## mybook
+## 我的借阅
 
 |URL|headers|methods|
 |--|--|--|
@@ -264,3 +264,19 @@
 
 401 confirm failed
 ```
+***
+
+## 1.xls 文件约定
+
+|序号|A|B|C|...|
+|--|--|--|--|--|
+|1|组别|编号|书名|..|
+|2|1|T0001|TEST|..|
+|..|..|..|..|..|
+
+如上，文件格式，其余信息不全的书籍放在除前三列的位置
+
+
+第一行**不能**写书籍信息，正式的书籍信息从第二行开始
+
+如上，文件名必须是1.xls

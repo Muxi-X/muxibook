@@ -112,8 +112,8 @@ class BasicTestCase(unittest.TestCase):
                 "token" : TOKEN,
             },
             data = json.dumps({
-		"no" : 'T0001',
-		"username" : 'shiina'
+        "no" : 'T0001',
+        "username" : 'shiina'
             }),
             content_type = 'application/json')
         self.assertTrue(response.status_code == 200)

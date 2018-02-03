@@ -109,7 +109,68 @@
 200        //  借书成功 
 ```
 
-*** 
+***
+## return book 
+|URL| headers|methods|
+|--|--|--|
+| /api/return/ | None | POST | 
+
+**URL Params:  None**
+
+**POST Data:** 
+
+```
+{
+	 "no" : string，           // book_num
+	 "username" : string  // username 
+}
+```
+
+**RETURN Data:** 
+
+```
+{ } 
+```
+
+**Status Code**
+
+```
+200      // 成功
+```
+
+***
+## renew a book
+|URL| headers|methods|
+|--|--|--|
+| /api/renew/ | None | POST | 
+
+**URL Params:  None**
+
+**POST Data:** 
+
+```
+{
+	 "no" : string，     // book_num
+	 "bookname" : string // username 
+}
+```
+
+**RETURN Data:** 
+
+```
+{} 
+```
+
+**Status Code**
+
+```
+200     // 成功
+401     // not reach return time
+```
+
+***
+
+
 ## 登录
 
 |URL| headers|methods|

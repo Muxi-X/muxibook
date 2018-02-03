@@ -116,3 +116,41 @@ def mybooks():
 		response=jsonify({})
 		response.status_code=401
 		return response
+
+@api.route('/return/',methods=['POST'])
+def return_book():
+	book_num=request.get_json().get('no')
+	username=request.get_json.()get('username')
+	bok=Book.query.filter_by(book_num=book_num).first()
+	usr=User.query.filter_by(username=username).first()
+	usr.book_count-=1
+	bok.user_id=None
+	bok.ava=1
+	bok.return_time=None
+	bok.lend_time=None
+	db.session.add(bok.usr)
+	db.session.commit()
+	response=jsonify({})
+	response.status_code=200
+	return response
+
+@appi.route('/renew/'.methods=['POST'])
+def renew():
+	book_num=request.get_json.get('no')
+	username=request.get_json.get('username')
+	lend_time=int(bok.lend_time)
+	if (lend_time+4924800) < time.time() and (lend_time+5155199) > time.time():
+		a=time.local(time.time()+5155199)
+		bok=Book.query.filter_by(book_num=book_num).first()
+		bok.lend_time=str(time.time())
+		bok.return_time=str(a[0])+"-"+str(a[1])+"-"+str(a[2])
+		db.session.add(bok)
+		db.session.commit()
+		response=jsonify({})
+		response.status_code=200
+		return response
+	else :
+		response=jsonify({})
+		response.status_code=401
+		return response
+	

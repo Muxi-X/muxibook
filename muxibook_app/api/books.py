@@ -15,12 +15,14 @@ def add_book():
 	db.session.add(bok)
 	db.session.commit()
 	response=jsonify({"msg":"add successfully"})
-	response.status_code=201
+	response.status_code=200
 	return response
 
 @api.route('/book/',methods=['GET'])
 def find_book():
-	page=int(request.args.get('page'))
+	page=1
+	if request.args.get('page') is not None:
+		page=int(request.args.get('page'))
 	kind=request.args.get('kind')
 	knd=Kind.query.filter_by(id=kind).first()
 	counter=0
@@ -120,7 +122,7 @@ def mybooks():
 @api.route('/return/',methods=['POST'])
 def return_book():
 	book_num=request.get_json().get('no')
-	username=request.get_json.()get('username')
+	username=request.get_json().get('username')
 	bok=Book.query.filter_by(book_num=book_num).first()
 	usr=User.query.filter_by(username=username).first()
 	usr.book_count-=1
@@ -134,10 +136,10 @@ def return_book():
 	response.status_code=200
 	return response
 
-@appi.route('/renew/'.methods=['POST'])
+@api.route('/renew/',methods=['POST'])
 def renew():
-	book_num=request.get_json.get('no')
-	username=request.get_json.get('username')
+	book_num=request.get_json().get('no')
+	username=request.get_json().get('username')
 	lend_time=int(bok.lend_time)
 	if (lend_time+4924800) < time.time() and (lend_time+5155199) > time.time():
 		a=time.local(time.time()+5155199)

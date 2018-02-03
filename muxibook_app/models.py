@@ -63,7 +63,7 @@ class Book(db.Model):
 	id=db.Column(db.Integer,primary_key=True)
 	kind_id=db.Column(db.Integer,db.ForeignKey('kinds.id'))
 	bookname=db.Column(db.String(30))
-	book_num=db.Column(db.String)
+	book_num=db.Column(db.String,unique=True)
 	ava=db.Column(db.Integer,default=1)
 	user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
 	lend_time=db.Column(db.String(50))

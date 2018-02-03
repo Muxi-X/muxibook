@@ -70,11 +70,11 @@ def lend_book():
 	t=request.headers.get("token")
 	usr=User.query.filter_by(realname=relname).first()
 	bok=Book.query.filter_by(bookname=bokname).first()
-	if usr.confirm(t) and usr.book_count <= 5:
+	if usr.confirm(t) and usr.book_count < 5:
 		bok.user_id=usr.id
 		bok.ava=0
 		a=time.localtime(time.time()+5155199)
-		bok.lend_time=str(time.time())
+		bok.lend_time=str(int(time.time()))
 		bok.return_time=str(a[0])+"-"+str(a[1])+"-"+str(a[2])
 		usr.book_count=usr.book_count+1
 		db.session.add(bok,usr)
@@ -90,10 +90,10 @@ def lend_book():
 		response.status_code=200
 	else:
 		response=jsonify({})
-		if usr.confirm(t) is False:
-			response.status_code=401
-		else: 
+		if usr.book_count == 5:
 			response.status_code=403
+		else: 
+			response.status_code=401
 	return response
 
 @api.route('/mybooks/',methods=['POST'])
@@ -130,7 +130,8 @@ def return_book():
 	bok.ava=1
 	bok.return_time=None
 	bok.lend_time=None
-	db.session.add(bok.usr)
+	db.session.add(bok)
+	db.session.add(usr)
 	db.session.commit()
 	response=jsonify({})
 	response.status_code=200
@@ -141,7 +142,7 @@ def renew():
 	book_num=request.get_json().get('no')
 	username=request.get_json().get('username')
 	lend_time=int(bok.lend_time)
-	if (lend_time+4924800) < time.time() and (lend_time+5155199) > time.time():
+	if (lend_time+4924800) < int(time.time()) and (lend_time+5155199) > int(time.time()):
 		a=time.local(time.time()+5155199)
 		bok=Book.query.filter_by(book_num=book_num).first()
 		bok.lend_time=str(time.time())

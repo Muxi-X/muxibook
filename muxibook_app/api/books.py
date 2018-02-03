@@ -37,6 +37,7 @@ def find_book():
 				b.ava=1
 				boks[counter%10]={
 					"book":b.bookname,
+					"no":b.book_num,
 					"kind":b.kind_id,
 					"available":b.ava
 				}		
@@ -45,6 +46,7 @@ def find_book():
 			else :
 				boks[counter%10]={
 					"book":b.bookname,
+					"no":b.book_num,
 					"kind":b.kind_id,
 					"available":b.ava,
 					"who":usr.username,

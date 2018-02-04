@@ -152,7 +152,7 @@
 ```
 {
 	 "no" : string，     // book_num
-	 "bookname" : string // username 
+	 "username" : string // username 
 }
 ```
 

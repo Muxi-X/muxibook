@@ -10,6 +10,7 @@ class User(UserMixin,db.Model):
     id=db.Column(db.Integer,primary_key=True)
     username=db.Column(db.String(20),unique=True)
     realname=db.Column(db.String(10))
+    auth_id=db.Column(db.Integer,unique=True)
     password=db.Column(db.String(20))
     password_hash=db.Column(db.String(128))
     confirmed=db.Column(db.Boolean,default=False)
@@ -62,7 +63,7 @@ class Book(db.Model):
     __tablename__='books'
     id=db.Column(db.Integer,primary_key=True)
     kind_id=db.Column(db.Integer,db.ForeignKey('kinds.id'))
-    bookname=db.Column(db.String(30))
+    bookname=db.Column(db.String(30),unique=True)
     book_num=db.Column(db.String)
     ava=db.Column(db.Integer,default=1)
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))

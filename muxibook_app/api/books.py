@@ -10,13 +10,19 @@ def add_book():
     kind=request.get_json().get('kind')
     bokname=request.get_json().get('book')
     boknum=request.get_json().get('no')
-    t=request.args.get('token')
-    bok=Book(kind_id=kind,bookname=bokname,book_num=boknum)
-    db.session.add(bok)
-    db.session.commit()
-    response=jsonify({"msg":"add successfully"})
-    response.status_code=200
-    return response
+    b=Book.query.filter_by(book_num=boknum).first()
+    if b is None:
+        t=request.args.get('token')
+        bok=Book(kind_id=kind,bookname=bokname,book_num=boknum)
+        db.session.add(bok)
+        db.session.commit()
+        response=jsonify({"msg":"add successfully"})
+        response.status_code=200
+        return response
+    else :
+        response=jsonify({})
+        response.status_code=400
+        return response
 
 @api.route('/book/',methods=['GET'])
 def find_book():

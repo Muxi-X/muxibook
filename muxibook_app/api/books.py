@@ -96,7 +96,7 @@ def lend_book():
         response.status_code=200
     else:
         response=jsonify({})
-        if usr.book_count == 5:
+        if usr.confirm(t):
             response.status_code=403
         else: 
             response.status_code=401
@@ -117,6 +117,9 @@ def mybooks():
                 "bookname" : b.bookname,
                 "return_time" : b.return_time                
             }
+        usr.book_count=c
+        db.session.add(usr)
+        db.session.commit()
         response=jsonify({"lend":lends})
         response.status_code=200
         return response

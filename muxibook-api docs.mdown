@@ -250,7 +250,7 @@
 **RETURN Data:**
 ```
 {
-    "lend"[{
+    "lend" : [{
                "no":string,
 	       "bookname":string,
 	       "return_time"

@@ -33,7 +33,7 @@ class get_info(Command):
                     a=Book(ava=1,kind_id=row[0].value,book_num=row[1].value,bookname=s)
                     db.session.add(a)
                     db.session.commit()
-        print ("successful!")
+        print ("Get_info Successful!")
 
 manager.add_command('get_info',get_info())
 
@@ -52,6 +52,7 @@ class kind_init(Command):
         db.session.add(e)
         db.session.add(f)
         db.session.commit()
+        print ("Kind_init Successful!")
 
 manager.add_command('kind_init',kind_init())    
     

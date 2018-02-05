@@ -63,8 +63,8 @@ class Book(db.Model):
     __tablename__='books'
     id=db.Column(db.Integer,primary_key=True)
     kind_id=db.Column(db.Integer,db.ForeignKey('kinds.id'))
-    bookname=db.Column(db.String(30),unique=True)
-    book_num=db.Column(db.String)
+    bookname=db.Column(db.String(30))
+    book_num=db.Column(db.String,unique=True)
     ava=db.Column(db.Integer,default=1)
     realname=db.Column(db.String(20))
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))

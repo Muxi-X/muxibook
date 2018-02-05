@@ -59,7 +59,7 @@ def find_book():
                     "available":b.ava,
                     "who":usr.username,
                     "when":b.return_time,
-                    "realname":usr.realname
+                    "realname":b.realname
                 }
     response=jsonify({
         "num":counter,
@@ -79,6 +79,7 @@ def lend_book():
     if usr.confirm(t) and usr.book_count < 5:
         bok.user_id=usr.id
         bok.ava=0
+        bok.realname=relname
         a=time.localtime(time.time()+5155199)
         bok.lend_time=str(int(time.time()))
         bok.return_time=str(a[0])+"-"+str(a[1])+"-"+str(a[2])
@@ -91,7 +92,7 @@ def lend_book():
             "available":bok.ava,
             "who":usr.username,
             "when":bok.return_time,
-            "realname":usr.realname
+            "realname":bok.realname
         })
         response.status_code=200
     else:

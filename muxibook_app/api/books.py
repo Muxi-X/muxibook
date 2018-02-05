@@ -150,10 +150,10 @@ def return_book():
 def renew():
     book_num=request.get_json().get('no')
     username=request.get_json().get('username')
+    bok=Book.query.filter_by(book_num=book_num).first()
     lend_time=int(bok.lend_time)
     if (lend_time+4924800) < int(time.time()) and (lend_time+5155199) > int(time.time()):
         a=time.local(time.time()+5155199)
-        bok=Book.query.filter_by(book_num=book_num).first()
         bok.lend_time=str(time.time())
         bok.return_time=str(a[0])+"-"+str(a[1])+"-"+str(a[2])
         db.session.add(bok)

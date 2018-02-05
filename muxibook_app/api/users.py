@@ -8,6 +8,10 @@ from ..models import User,Book
 def login():
     usrname=request.get_json().get('username')
     usr=User.query.filter_by(username=usrname).first()
+    if usr is None:
+        usr=User(username=usrname,password='muxibooks')
+        db.session.add(usr)
+        db.session.commit()
     token=usr.generate_confirmation_token()
     response=jsonify({"token":token})
     response.status_code=200

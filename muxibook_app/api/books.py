@@ -72,9 +72,10 @@ def find_book():
 @api.route('/booklend/',methods=['POST'])
 def lend_book():
     bokname=request.get_json().get('book')
+    usrname=request.get_json().get('username')
     relname=request.get_json().get('realname')
     t=request.headers.get("token")
-    usr=User.query.filter_by(realname=relname).first()
+    usr=User.query.filter_by(username=usrname).first()
     bok=Book.query.filter_by(bookname=bokname).first()
     if usr.confirm(t) and usr.book_count < 5:
         bok.user_id=usr.id

@@ -110,15 +110,15 @@ def mybooks():
     usrname=request.get_json().get('username')
     usr=User.query.filter_by(username=usrname).first()
     if usr.confirm(token) :
-        lends=list([None,None,None,None,None,None])
+        lends=list([])
         c=0
         for b in usr.books:
             c=c+1
-            lends[c]={
+            lends.append({
                 "no" : b.book_num,
                 "bookname" : b.bookname,
                 "return_time" : b.return_time                
-            }
+            })
         usr.book_count=c
         db.session.add(usr)
         db.session.commit()

@@ -178,7 +178,7 @@
 |--|--|--|
 | /api/v1.0/search/ | None | POST | 
 
-**URL Params:  None**
+**URL Params:  page**
 
 **POST Data:** 
 
@@ -193,6 +193,7 @@
 ```
 {
 	 "num" : int，              // 查询到的该种类图书总数 
+	 "page" : int ,             //page
 	 "books" : [{
 	 			"book" : string，          // 书名 
 				"kind" : int，             // 种类 

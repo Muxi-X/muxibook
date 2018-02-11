@@ -168,6 +168,52 @@ def renew():
         response.status_code=401
         return response
     
-@api.route('/search/',methods=['POST'])
+@api.route('/search/',methods=['POST','GET'])
 def rearch():
-    
+    page=1
+    if request.args.get('page') is not None；
+        page=int(request.args.get('page'))
+    counter=0
+    boks=list([None,None,None,None,None,None,None,None,None,None,None])
+    keyword=request.get_json().get('partten')
+    words=['%'+keyword+'%']
+    rule=and_(*[Book.bookname.like(w)] for w in words)
+    l=Book.query.filter(rule)
+    for b in l:
+        if b.ava==0:
+            if (time.time()-int(b.lend_time)) > 5155199:
+                b.ava=2
+        counter=counter+1
+        c=int(counter)//10
+        if (c+1) == page:
+            usr=User.query.filter_by(id=b.user_id).first()
+            if usr==None:
+                b.ava=1
+                boks[counter%10]={
+                    "book":b.bookname,
+                    "no":b.book_num,
+                    "kind":b.kind_id,
+                    "available":b.ava
+                }
+                db.session.add(b)
+                db.session.commit()
+            else :
+                boks[counter%10]={
+                    "book":b.bookname,
+                    "no":b.book_num,
+                    "kind":b.kind_id,
+                    "available":b.ava,
+                    "who":usr.username,
+                    "when":b.return_time,
+                    "realname":b.realname
+                } 
+    response=jsonify({
+        "num":counter,
+        "page":page,
+        "books":boks
+    })
+    if counter == 0:
+        response.status_code=401
+    else :
+        response.status_code=200
+    return response

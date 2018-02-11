@@ -172,6 +172,47 @@
 
 ***
 
+***
+## search book list
+|URL| headers|methods|
+|--|--|--|
+| /api/v1.0/search/ | None | POST | 
+
+**URL Params:  None**
+
+**POST Data:** 
+
+```
+{
+	 "partten" : string，     // keyword
+}
+```
+
+**RETURN Data:** 
+
+```
+{
+	 "num" : int，              // 查询到的该种类图书总数 
+	 "books" : [{
+	 			"book" : string，          // 书名 
+				"kind" : int，             // 种类 
+				"available" : int，       // 可借为1，不可借0  
+				"who" : string，           // 如果已借出，借出人用户名 
+				"when" : string，          // 如果已经借出，归还日期 
+				"realname" : string        // 借出人真名 
+ 	 }] 
+} 
+```
+
+**Status Code**
+
+```
+200     // 成功
+401     // list is empty
+```
+
+***
+
 
 ## 登录
 

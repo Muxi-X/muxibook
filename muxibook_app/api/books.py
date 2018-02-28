@@ -169,15 +169,15 @@ def renew():
         return response
     
 @api.route('/search/',methods=['POST','GET'])
-def rearch():
+def search():
     page=1
-    if request.args.get('page') is not None；
+    if request.args.get('page') is not None:
         page=int(request.args.get('page'))
     counter=0
     boks=list([None,None,None,None,None,None,None,None,None,None,None])
     keyword=request.get_json().get('partten')
     words=['%'+keyword+'%']
-    rule=and_(*[Book.bookname.like(w)] for w in words)
+    rule=and_(*[Book.bookname.like(w) for w in words])
     l=Book.query.filter(rule)
     for b in l:
         if b.ava==0:

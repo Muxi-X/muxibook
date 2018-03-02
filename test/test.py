@@ -79,6 +79,16 @@ class BasicTestCase(unittest.TestCase):
             content_type = 'application/json')
         self.assertTrue(response.status_code == 200)
 
+    #Test search
+    def test_d_b_search(self):
+        response = self.client.get(
+            url_for('api.search',page=1,_external=True),
+            data = json.dumps({
+                "partten":'SS'         
+            }),
+            content_type = 'application/json')
+        self.assertTrue(response.status_code == 200)
+
     #Test lend_book
     def test_f_lend_book(self):
         response = self.client.post(
@@ -88,6 +98,7 @@ class BasicTestCase(unittest.TestCase):
             },
             data = json.dumps({
                 "book":'algorithm',
+                "username":'shiina',
                 "realname":'shiina',
             }),
             content_type = 'application/json')

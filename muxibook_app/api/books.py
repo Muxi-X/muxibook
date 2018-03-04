@@ -38,7 +38,6 @@ def find_book():
         if b.ava==0:
             if (time.time()-int(b.lend_time)) > 5155199:
                 b.ava=2
-        counter=counter+1
         c=int(counter)//10
         if (c+1) == page:
             usr=User.query.filter_by(id=b.user_id).first()
@@ -62,6 +61,7 @@ def find_book():
                     "when":b.return_time,
                     "realname":b.realname
                 }
+        counter=counter+1
     response=jsonify({
         "num":counter,
         "page":page,
@@ -184,13 +184,12 @@ def search():
         if b.ava==0:
             if (time.time()-int(b.lend_time)) > 5155199:
                 b.ava=2
-        counter=counter+1
         c=int(counter)//10
         if (c+1) == page:
             usr=User.query.filter_by(id=b.user_id).first()
             if usr==None:
                 b.ava=1
-                boks[counter%10-1]={
+                boks[counter%10]={
                     "book":b.bookname,
                     "no":b.book_num,
                     "kind":b.kind_id,
@@ -199,7 +198,7 @@ def search():
                 db.session.add(b)
                 db.session.commit()
             else :
-                boks[counter%10-1]={
+                boks[counter%10]={
                     "book":b.bookname,
                     "no":b.book_num,
                     "kind":b.kind_id,
@@ -208,6 +207,7 @@ def search():
                     "when":b.return_time,
                     "realname":b.realname
                 } 
+        counter=counter+1
     response=jsonify({
         "num":counter,
         "page":page,

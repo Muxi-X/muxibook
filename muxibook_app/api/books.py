@@ -190,7 +190,7 @@ def search():
             usr=User.query.filter_by(id=b.user_id).first()
             if usr==None:
                 b.ava=1
-                boks[counter%10]={
+                boks[counter%10-1]={
                     "book":b.bookname,
                     "no":b.book_num,
                     "kind":b.kind_id,
@@ -199,7 +199,7 @@ def search():
                 db.session.add(b)
                 db.session.commit()
             else :
-                boks[counter%10]={
+                boks[counter%10-1]={
                     "book":b.bookname,
                     "no":b.book_num,
                     "kind":b.kind_id,

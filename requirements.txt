@@ -12,7 +12,7 @@ Mako==0.9.1
 MarkupSafe==1.0
 SQLAlchemy==1.2.2
 WTForms==2.1
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 alembic==0.9.7
 apturl==0.5.2ubuntu4
 blinker==1.4
